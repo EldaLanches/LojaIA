@@ -1,0 +1,299 @@
+:root {
+    --gremio-azul: #0D80BF;
+    --gremio-azul-escuro: #085682;
+    --gremio-preto: #0a0a0c;
+    --gremio-branco: #ffffff;
+    --fundo-vidro: rgba(10, 14, 20, 0.82);
+    --fundo-sidebar: rgba(5, 8, 12, 0.92);
+    --borda-sutil: rgba(13, 128, 191, 0.35);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    color: var(--gremio-branco);
+    height: 100vh;
+    overflow: hidden;
+    /* Imagem de fundo da Arena com camada escura para leitura */
+    background-image:
+        linear-gradient(rgba(5, 10, 18, 0.72), rgba(5, 10, 18, 0.85)),
+        url('fundo-gremio.jpg');
+    /* <-- COLOQUE O NOME DA SUA IMAGEM AQUI */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Layout Principal (Sidebar + Chat) */
+.app-container {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* --- BARRA LATERAL ESQUERDA --- */
+.sidebar {
+    width: 280px;
+    background-color: var(--fundo-sidebar);
+    backdrop-filter: blur(12px);
+    border-right: 2px solid var(--gremio-azul);
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    flex-shrink: 0;
+}
+
+.sidebar-header {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-header h2 {
+    font-size: 1.2rem;
+    color: var(--gremio-azul);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Detalhe tricolor ao lado do título */
+.sidebar-header h2::before {
+    content: "";
+    display: inline-block;
+    width: 6px;
+    height: 20px;
+    background: linear-gradient(to bottom, var(--gremio-azul) 33%, #000 33%, #000 66%, #fff 66%);
+    border-radius: 2px;
+}
+
+#nova {
+    width: 100%;
+    padding: 12px;
+    background-color: transparent;
+    color: var(--gremio-branco);
+    border: 1px solid var(--gremio-azul);
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+}
+
+#nova:hover {
+    background-color: var(--gremio-azul);
+    box-shadow: 0 0 12px rgba(13, 128, 191, 0.5);
+}
+
+.historico-titulo {
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #8899a6;
+    margin: 16px 0 8px 4px;
+    letter-spacing: 0.8px;
+}
+
+.lista-conversas {
+    list-style: none;
+    overflow-y: auto;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.item-conversa {
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #d1d5db;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: background 0.2s;
+    border-left: 3px solid transparent;
+}
+
+.item-conversa:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    color: var(--gremio-branco);
+}
+
+.item-conversa.ativa {
+    background-color: rgba(13, 128, 191, 0.22);
+    color: var(--gremio-branco);
+    border-left: 3px solid var(--gremio-azul);
+    font-weight: 600;
+}
+
+/* --- ÁREA PRINCIPAL DO CHAT --- */
+.chat-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    position: relative;
+}
+
+.chat-header {
+    padding: 14px 24px;
+    background: rgba(10, 14, 20, 0.65);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.chat-header h1 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--gremio-branco);
+}
+
+#chat {
+    flex: 1;
+    overflow-y: auto;
+    padding: 24px 12%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Balões de Mensagem */
+.msg {
+    max-width: 78%;
+    padding: 14px 18px;
+    border-radius: 14px;
+    line-height: 1.5;
+    font-size: 15px;
+    white-space: pre-wrap;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Mensagem do Usuário (Azul Grêmio) */
+.user {
+    align-self: flex-end;
+    background: linear-gradient(135deg, var(--gremio-azul), var(--gremio-azul-escuro));
+    color: var(--gremio-branco);
+    border-bottom-right-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Mensagem do Assistente (Preto/Vidro com borda tricolor) */
+.assistant {
+    align-self: flex-start;
+    background-color: var(--fundo-vidro);
+    backdrop-filter: blur(10px);
+    color: #f3f4f6;
+    border-bottom-left-radius: 4px;
+    border: 1px solid var(--borda-sutil);
+    border-left: 4px solid var(--gremio-azul);
+}
+
+.ferramentas {
+    align-self: flex-start;
+    font-size: 12px;
+    color: #7dd3fc;
+    background: rgba(13, 128, 191, 0.15);
+    padding: 4px 10px;
+    border-radius: 12px;
+    margin-top: -8px;
+}
+
+/* --- FORMULÁRIO DE ENVIO --- */
+form {
+    padding: 16px 12% 24px 12%;
+    display: flex;
+    gap: 12px;
+    background: linear-gradient(to top, rgba(5, 8, 12, 0.95), transparent);
+}
+
+input {
+    flex: 1;
+    padding: 14px 18px;
+    font-size: 15px;
+    background-color: rgba(15, 20, 28, 0.9);
+    color: var(--gremio-branco);
+    border: 1px solid var(--borda-sutil);
+    border-radius: 10px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input::placeholder {
+    color: #8899a6;
+}
+
+input:focus {
+    border-color: var(--gremio-azul);
+    box-shadow: 0 0 0 3px rgba(13, 128, 191, 0.25);
+}
+
+#enviar {
+    padding: 0 24px;
+    font-size: 15px;
+    font-weight: 600;
+    background-color: var(--gremio-azul);
+    color: var(--gremio-branco);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+}
+
+#enviar:hover:not(:disabled) {
+    background-color: #1196de;
+}
+
+#enviar:active:not(:disabled) {
+    transform: scale(0.98);
+}
+
+#enviar:disabled {
+    background-color: #374151;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* Barra de rolagem personalizada */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(13, 128, 191, 0.4);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--gremio-azul);
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 210px;
+    }
+
+    #chat,
+    form {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+}

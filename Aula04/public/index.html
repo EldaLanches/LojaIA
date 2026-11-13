@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Grêmio IA - Agente com memória</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Barra Lateral Esquerda -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h2>Imortal IA</h2>
+        <button id="nova" type="button">+ Nova conversa</button>
+      </div>
+      <div class="historico-titulo">Suas Conversas</div>
+      <ul id="lista-conversas" class="lista-conversas">
+        <!-- As conversas serão inseridas aqui pelo JavaScript -->
+      </ul>
+    </aside>
+
+    <!-- Área Principal do Chat -->
+    <main class="chat-area">
+      <header class="chat-header">
+        <h1>Agente Tricolor</h1>
+      </header>
+
+      <div id="chat" aria-live="polite"></div>
+
+      <form id="form">
+        <input id="pergunta" aria-label="Sua mensagem" placeholder="Mande sua pergunta para o Imortal..." autocomplete="off" required>
+        <button id="enviar" type="submit">Enviar</button>
+      </form>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
